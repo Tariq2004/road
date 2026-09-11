@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Road to Independence</title>
+<meta name="description" content="A private roadmap of life projects.">
+<meta name="theme-color" content="#F7F6F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131211" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Road">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='10' fill='%23D6392B'/></svg>">
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper:      #F7F6F3;
+    --surface:    #FFFFFF;
+    --surface-2:  #F1EFEB;
+    --ink:        #1A1614;
+    --ink-soft:   #4A423D;
+    --muted:      #8C837C;
+    --line:       #E4DFD9;
+    --accent:     #D6392B;
+    --accent-dim: #F3DAD6;
+    --focus:      #1A1614;
+
+    --f-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --f-ui:      "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --r: 10px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #131211;
+      --surface:    #1D1B19;
+      --surface-2:  #26231F;
+      --ink:        #F0EBE5;
+      --ink-soft:   #C7BEB6;
+      --muted:      #8E8880;
+      --line:       #322E2A;
+      --accent:     #F0563F;
+      --accent-dim: #46231D;
+      --focus:      #F0EBE5;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #131211;
+    --surface:    #1D1B19;
+    --surface-2:  #26231F;
+    --ink:        #F0EBE5;
+    --ink-soft:   #C7BEB6;
+    --muted:      #8E8880;
+    --line:       #322E2A;
+    --accent:     #F0563F;
+    --accent-dim: #46231D;
+    --focus:      #F0EBE5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-ui);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 40px 72px;
+  }
+
+  :where(button, input, [contenteditable]):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ---- masthead ---- */
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+    cursor: text;
+  }
+  h1:hover { color: var(--ink-soft); }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tally {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    margin-right: auto;
+  }
+  .tally b { color: var(--accent); font-weight: 500; }
+
+  .ghost-btn {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 13px;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .ghost-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .ghost-btn[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ---- the route ---- */
+
+  ol.route {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px 13px 16px;
+    border-radius: var(--r);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+
+  .stage[data-status="next"] {
+    background: transparent;
+    border-style: dashed;
+  }
+
+  .num {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+    padding-top: 1px;
+  }
+  .stage[data-status="now"] .num { color: var(--accent); }
+
+  .title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    padding: 2px 0;
+    text-overflow: ellipsis;
+  }
+  .stage[data-status="next"] .title { color: var(--ink-soft); font-weight: 400; }
+  .title::placeholder { color: var(--muted); font-style: italic; font-weight: 400; }
+
+  .dot {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--muted);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background .15s, border-color .15s, transform .15s;
+  }
+  .dot:hover { transform: scale(1.12); }
+  .stage[data-status="now"] .dot {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .row-tools { display: none; gap: 2px; flex: none; }
+  body.editing .row-tools { display: flex; }
+
+  /* On a trackpad or mouse the controls are always in the layout and fade in
+     with the row, so nothing shifts. Touch devices keep the Edit toggle. */
+  @media (hover: hover) and (pointer: fine) {
+    .row-tools {
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .12s ease;
+    }
+    .stage:hover .row-tools,
+    .stage:focus-within .row-tools,
+    body.editing .row-tools { opacity: 1; pointer-events: auto; }
+  }
+
+  .tool {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .tool:hover { background: var(--surface-2); color: var(--ink); }
+  .tool.danger:hover { background: var(--accent-dim); color: var(--accent); }
+  .tool[disabled] { opacity: .28; cursor: default; }
+  .tool[disabled]:hover { background: none; color: var(--muted); }
+
+  /* ---- reveal seam ---- */
+
+  .seam {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .seam::before, .seam::after {
+    content: "";
+    height: 1px;
+    background: var(--line);
+    flex: 1 1 auto;
+  }
+  .seam .ghost-btn { flex: none; }
+
+  /* ---- add ---- */
+
+  .add {
+    display: flex;
+    gap: 8px;
+    margin-top: 26px;
+  }
+  .add input {
+    flex: 1 1 auto;
+    min-width: 0;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 11px 14px;
+  }
+  .add input::placeholder { color: var(--muted); }
+  .add input:focus { border-color: var(--ink-soft); }
+  .add button {
+    flex: none;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--r);
+    padding: 0 18px;
+    cursor: pointer;
+  }
+  .add button:hover { background: var(--accent); border-color: var(--accent); }
+
+  .empty {
+    font-size: 15px;
+    color: var(--muted);
+    padding: 26px 4px;
+    text-align: center;
+    border: 1px dashed var(--line);
+    border-radius: var(--r);
+  }
+
+  /* ---- footer ---- */
+
+  footer {
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .key { display: flex; align-items: center; gap: 8px; }
+  .key i {
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid var(--muted); flex: none;
+  }
+  .key.on i { background: var(--accent); border-color: var(--accent); }
+  #sync { margin-left: auto; }
+
+  /* ---- undo ---- */
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: calc(100vw - 32px);
+    padding: 9px 10px 9px 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 14px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .22);
+    animation: rise .18s ease-out;
+  }
+  .toast span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .toast button {
+    flex: none;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+  }
+  .toast button:hover { filter: brightness(1.1); }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Life projects</p>
+  <h1 id="board-title" contenteditable="plaintext-only" spellcheck="false">Road to Independence</h1>
+
+  <div class="meta">
+    <p class="tally" id="tally">&nbsp;</p>
+    <button class="ghost-btn" id="edit-toggle" aria-pressed="false">Edit list</button>
+  </div>
+
+  <ol class="route" id="route"></ol>
+  <p class="empty" id="empty" hidden>Nothing on the road yet. Add your first project below.</p>
+
+  <div class="seam" id="seam" hidden>
+    <button class="ghost-btn" id="reveal" aria-pressed="false"></button>
+  </div>
+
+  <form class="add" id="add-form">
+    <input id="add-input" placeholder="Add a project&hellip;" autocomplete="off" aria-label="New project">
+    <button type="submit">Add</button>
+  </form>
+
+  <footer>
+    <span class="key on"><i></i> In progress</span>
+    <span class="key"><i></i> Soon</span>
+    <span id="sync">Saving locally</span>
+    <button class="ghost-btn" id="auth-btn" hidden>Sign in to sync</button>
+  </footer>
+</div>
+
+<div class="toast" id="toast" hidden role="status">
+  <span id="toast-text"></span>
+  <button type="button" id="toast-undo">Undo</button>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------------------------
+     Paste your Firebase web-app config between the braces to turn on
+     syncing between devices. Leave it empty and the page still works,
+     saving to whichever browser you are using.
+     --------------------------------------------------------------- */
+  var FIREBASE_CONFIG = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    appId: ""
+  };
+
+  var DOC_PATH  = "board/main";
+  var LOCAL_KEY = "road-to-independence.v1";
+
+  var state    = { title: "Road to Independence", items: [] };
+  var revealed = false;
+  var editing  = false;
+  var db       = null;
+  var deferred = null;      // remote state held back while a field is focused
+  var writeTimer = null;
+  var lastRemoved = null;   // one step of undo for a deleted project
+  var toastTimer = null;
+
+  var $route  = document.getElementById("route");
+  var $empty  = document.getElementById("empty");
+  var $seam   = document.getElementById("seam");
+  var $reveal = document.getElementById("reveal");
+  var $tally  = document.getElementById("tally");
+  var $title  = document.getElementById("board-title");
+  var $sync   = document.getElementById("sync");
+  var $edit   = document.getElementById("edit-toggle");
+  var $auth   = document.getElementById("auth-btn");
+  var $toast  = document.getElementById("toast");
+  var $toastText = document.getElementById("toast-text");
+  var $undo   = document.getElementById("toast-undo");
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function normalize(raw) {
+    var items = Array.isArray(raw && raw.items) ? raw.items : [];
+    return {
+      title: typeof (raw && raw.title) === "string" && raw.title.trim()
+        ? raw.title : "Road to Independence",
+      items: items.filter(Boolean).map(function (it) {
+        return {
+          id: String(it.id || uid()),
+          text: typeof it.text === "string" ? it.text : "",
+          status: it.status === "now" ? "now" : "next"
+        };
+      })
+    };
+  }
+
+  /* ---------- rendering ---------- */
+
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+  function render() {
+    if (document.activeElement !== $title) $title.textContent = state.title;
+
+    var nowCount = 0, nextCount = 0;
+    state.items.forEach(function (it) {
+      if (it.status === "now") nowCount++; else nextCount++;
+    });
+
+    $tally.innerHTML = state.items.length
+      ? "<b>" + nowCount + "</b> in progress &nbsp;·&nbsp; " + nextCount + " soon"
+      : "&nbsp;";
+
+    $empty.hidden = state.items.length > 0;
+
+    var focusedId = null, caret = null;
+    var active = document.activeElement;
+    if (active && active.classList && active.classList.contains("title")) {
+      focusedId = active.dataset.id;
+      caret = active.selectionStart;
+    }
+
+    $route.textContent = "";
+    state.items.forEach(function (it, i) {
+      if (it.status === "next" && !revealed) return;
+      $route.appendChild(row(it, i));
+    });
+
+    if (focusedId) {
+      var again = $route.querySelector('.title[data-id="' + focusedId + '"]');
+      if (again) {
+        again.focus();
+        if (caret !== null) { try { again.setSelectionRange(caret, caret); } catch (e) {} }
+      }
+    }
+
+    $seam.hidden = nextCount === 0;
+    $reveal.textContent = revealed
+      ? "Hide " + nextCount + " upcoming"
+      : "Show " + nextCount + " upcoming";
+    $reveal.setAttribute("aria-pressed", revealed ? "true" : "false");
+  }
+
+  function row(item, index) {
+    var li = document.createElement("li");
+    li.className = "stage";
+    li.dataset.status = item.status;
+    li.dataset.id = item.id;
+
+    var num = document.createElement("span");
+    num.className = "num";
+    num.textContent = pad(index + 1);
+    li.appendChild(num);
+
+    var input = document.createElement("input");
+    input.className = "title";
+    input.dataset.id = item.id;
+    input.value = item.text;
+    input.placeholder = "Not named yet";
+    input.setAttribute("aria-label", "Project " + (index + 1));
+    input.addEventListener("input", function () {
+      item.text = input.value;
+      save();
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); input.blur(); }
+    });
+    input.addEventListener("blur", flushDeferred);
+    li.appendChild(input);
+
+    var tools = document.createElement("div");
+    tools.className = "row-tools";
+    tools.appendChild(toolBtn("↑", "Move up", index === 0, function () {
+      move(index, -1);
+    }));
+    tools.appendChild(toolBtn("↓", "Move down", index === state.items.length - 1, function () {
+      move(index, 1);
+    }));
+    var del = toolBtn("×", "Delete project", false, function () {
+      state.items = state.items.filter(function (x) { return x.id !== item.id; });
+      save(); render();
+    });
+    del.classList.add("danger");
+    tools.appendChild(del);
+    li.appendChild(tools);
+
+    var dot = document.createElement("button");
+    dot.className = "dot";
+    dot.type = "button";
+    dot.title = item.status === "now" ? "In progress — tap to move to soon"
+                                      : "Soon — tap to start";
+    dot.setAttribute("aria-label", dot.title);
+    dot.addEventListener("click", function () {
+      item.status = item.status === "now" ? "next" : "now";
+      save(); render();
+    });
+    li.appendChild(dot);
+
+    return li;
+  }
+
+  function toolBtn(glyph, label, disabled, fn) {
+    var b = document.createElement("button");
+    b.className = "tool";
+    b.type = "button";
+    b.textContent = glyph;
+    b.title = label;
+    b.setAttribute("aria-label", label);
+    if (disabled) b.disabled = true;
+    b.addEventListener("click", fn);
+    return b;
+  }
+
+  function move(index, delta) {
+    var to = index + delta;
+    if (to < 0 || to >= state.items.length) return;
+    var moved = state.items.splice(index, 1)[0];
+    state.items.splice(to, 0, moved);
+    save(); render();
+  }
+
+  function removeItem(item) {
+    var index = state.items.indexOf(item);
+    if (index === -1) return;
+    state.items.splice(index, 1);
+    lastRemoved = { item: item, index: index };
+    save();
+    render();
+    showToast("Deleted " + (item.text.trim() || "an unnamed project"));
+  }
+
+  function showToast(text) {
+    $toastText.textContent = text;
+    $toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(hideToast, 8000);
+  }
+
+  function hideToast() {
+    clearTimeout(toastTimer);
+    $toast.hidden = true;
+    lastRemoved = null;
+  }
+
+  $undo.addEventListener("click", function () {
+    if (!lastRemoved) { hideToast(); return; }
+    var at = Math.min(lastRemoved.index, state.items.length);
+    state.items.splice(at, 0, lastRemoved.item);
+    hideToast();
+    save();
+    render();
+  });
+
+  /* ---------- persistence ---------- */
+
+  function localSave() {
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function localLoad() {
+    try {
+      var raw = localStorage.getItem(LOCAL_KEY);
+      return raw ? normalize(JSON.parse(raw)) : null;
+    } catch (e) { return null; }
+  }
+
+  function save() {
+    localSave();
+    if (!db) return;
+    clearTimeout(writeTimer);
+    writeTimer = setTimeout(function () {
+      db.doc(DOC_PATH).set({
+        title: state.title,
+        items: state.items,
+        updatedAt: new Date().toISOString()
+      }).then(function () {
+        status("Synced");
+      }, function (err) {
+        status(err && err.code === "revoked" ? "Saved on this device" : "Retrying…");
+      });
+    }, 350);
+  }
+
+  function status(text) { $sync.textContent = text; }
+
+  function isEditingField() {
+    var a = document.activeElement;
+    return !!(a && (a === $title || (a.classList && a.classList.contains("title"))));
+  }
+
+  function applyRemote(next) {
+    if (isEditingField()) { deferred = next; return; }
+    deferred = null;
+    state = next;
+    localSave();
+    render();
+  }
+
+  function flushDeferred() {
+    if (deferred) { var d = deferred; deferred = null; applyRemote(d); }
+  }
+
+  /* ---------- wiring ---------- */
+
+  $title.addEventListener("input", function () {
+    state.title = $title.textContent.trim() || "Road to Independence";
+    save();
+  });
+  $title.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); $title.blur(); }
+  });
+  $title.addEventListener("blur", function () {
+    $title.textContent = state.title;
+    flushDeferred();
+  });
+
+  $reveal.addEventListener("click", function () { revealed = !revealed; render(); });
+
+  $edit.addEventListener("click", function () {
+    editing = !editing;
+    document.body.classList.toggle("editing", editing);
+    $edit.setAttribute("aria-pressed", editing ? "true" : "false");
+    $edit.textContent = editing ? "Done" : "Edit list";
+  });
+
+  document.getElementById("add-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var field = document.getElementById("add-input");
+    var text = field.value.trim();
+    if (!text) return;
+    state.items.push({ id: uid(), text: text, status: "next" });
+    field.value = "";
+    revealed = true;
+    save(); render();
+  });
+
+  /* ---------- boot ---------- */
+
+  var FB_VERSION = "10.12.2";
+  var FB_BASE = "https://www.gstatic.com/firebasejs/" + FB_VERSION + "/";
+  var auth = null;
+
+  var seeded = localLoad();
+  if (seeded) state = seeded;
+  render();
+
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = function () { reject(new Error("failed to load " + src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function startSync() {
+    if (!FIREBASE_CONFIG.apiKey) { status("Saved on this device"); return; }
+    status("Connecting…");
+    loadScript(FB_BASE + "firebase-app-compat.js")
+      .then(function () { return loadScript(FB_BASE + "firebase-auth-compat.js"); })
+      .then(function () { return loadScript(FB_BASE + "firebase-firestore-compat.js"); })
+      .then(initFirebase)
+      .catch(function () {
+        status("Sync unavailable — saved on this device");
+      });
+  }
+
+  function initFirebase() {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    auth = firebase.auth();
+    var store = firebase.firestore();
+
+    auth.onAuthStateChanged(function (user) {
+      if (!user) {
+        db = null;
+        $auth.hidden = false;
+        $auth.textContent = "Sign in to sync";
+        status("Not synced");
+        return;
+      }
+      $auth.hidden = false;
+      $auth.textContent = "Sign out";
+      db = store;
+      console.log("Your Firebase user UID (paste this into your security rules):", user.uid);
+      subscribe();
+    });
+  }
+
+  function subscribe() {
+    db.doc(DOC_PATH).onSnapshot(function (snap) {
+      if (snap.metadata && snap.metadata.hasPendingWrites) return;
+      if (!snap.exists) {
+        status(state.items.length ? "Synced" : "Ready");
+        if (state.items.length) save();
+        return;
+      }
+      applyRemote(normalize(snap.data()));
+      status("Synced");
+    }, function (err) {
+      status(err && err.code === "permission-denied"
+        ? "Blocked by security rules"
+        : "Offline — saved on this device");
+    });
+  }
+
+  $auth.addEventListener("click", function () {
+    if (!auth) return;
+    if (auth.currentUser) { auth.signOut(); return; }
+    var provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).catch(function () {
+      auth.signInWithRedirect(provider);
+    });
+  });
+
+  startSync();
+})();
+</script>
+
+</body>
+</html>
